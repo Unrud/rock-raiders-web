@@ -207,7 +207,10 @@ export class CarryJob extends Job {
     private igniteDynamite() {
         this.carryItem.worldMgr.ecs.addComponent(this.carryItem.entity, new RaiderScareComponent(RaiderScareRange.DYNAMITE))
         const targetSurface = this.carryItem.targetSurface
-        if (targetSurface) this.carryItem.sceneEntity.headTowards(targetSurface.getCenterWorld2D())
+        if (targetSurface) {
+            this.carryItem.sceneEntity.headTowards(targetSurface.getCenterWorld2D())
+            this.carryItem.sceneEntity.rotateY(Math.PI)
+        }
         this.carryItem.sceneEntity.setAnimation(DynamiteActivity.TickDown, () => {
             this.carryItem.worldMgr.ecs.removeComponent(this.carryItem.entity, RaiderScareComponent)
             targetSurface?.collapse()
